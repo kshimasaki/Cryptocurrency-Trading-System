@@ -84,7 +84,7 @@ class BotStrategy(object):
 			self.eth_historical_percent = (self.eth_historical_positive/self.eth_historical_total)*100
 
 
-			if ((eth_percent > 1.022*self.eth_historical_percent and  eth_percent > 40) or btc_percent < btc_historical_percent):
+			if ((eth_percent > 1.022*self.eth_historical_percent and  eth_percent > 40) or btc_percent < self.btc_historical_percent):
 
 				self.eth_trading_percent = eth_percent
 

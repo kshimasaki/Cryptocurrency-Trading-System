@@ -7,10 +7,10 @@ class BotTrade(object):
 		self.entryPrice = currentPrice
 		self.exitPrice = ""
 		self.output.log("Trade opened")
-		
+
 		if (stopLoss):
 			self.stopLoss = float(currentPrice) - stopLoss
-	
+
 	def close(self,currentPrice):
 		self.status = "CLOSED"
 		self.exitPrice = currentPrice
@@ -23,7 +23,7 @@ class BotTrade(object):
 
 
 	def showTrade(self):
-		tradeStatus = "Entry Price: "+str(self.entryPrice)+" Status: "+str(self.status)+" Exit Price: "+str(self.exitPrice) 
+		tradeStatus = "Entry Price: "+str(self.entryPrice)+" Status: "+str(self.status)+" Exit Price: "+str(self.exitPrice)
 
 		if (self.status == "CLOSED"):
 			tradeStatus = tradeStatus + " Profit: "
@@ -35,5 +35,5 @@ class BotTrade(object):
 			net_value = float(self.exitPrice) - float(self.entryPrice)
 			tradeStatus = tradeStatus+ str(net_value)+"\033[0m"
 
-                
+
 		self.output.log(tradeStatus)

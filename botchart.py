@@ -16,5 +16,3 @@ class BotChart(object):
 
 		#print self.data.last
 		return self.data.last
-
-	
