@@ -91,10 +91,10 @@ class BotStrategy(object):
 
 				self.trades.append(BotTrade(self.prices,stopLoss= 0.001))
 
-				time.sleep(60*5)
+				time.sleep(60*3)
 
 			else:
-				time.sleep(60*5)
+				time.sleep(60*7)
 
 		for trade in openTrades:
 
@@ -135,7 +135,7 @@ class BotStrategy(object):
 				self.currentClose = price["BTC_ETH"]['last']
 				trade.close(self.currentClose)
 			else:
-				time.sleep(60*5)
+				time.sleep(60*7)
 
 	def updateOpenTrades(self):
 		for trade in self.trades:
