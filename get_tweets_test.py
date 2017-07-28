@@ -8,7 +8,6 @@ Created on Wed Jul 12 21:12:59 2017
 
 import tweepy
 import nltk
-import TextBlob
 
 
 def get_word_in_tweets(tweets):
@@ -115,7 +114,7 @@ def classify(tweets):
     positive = 0.0
 
     negative = 0.0
-    
+
     for tweet in (tweets):
         sent = classifier.classify(extract_features(tweet.split()))
         if sent == 'positive':
