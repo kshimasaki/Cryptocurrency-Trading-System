@@ -86,10 +86,12 @@ class BotStrategy(object):
 
 			if ((eth_percent > 1.022*self.eth_historical_percent and  eth_percent > 50) or btc_percent < 0.978*self.btc_historical_percent):
 
-				if (eth_percent > 1.022*self.eth_historical_percent and  eth_percent > 50):
-					self.type_of_trade = 'ETH'
-				else:
+				if btc_percent < 0.978*self.btc_historical_percent:
 					self.type_of_trade = 'BTC'
+				elif(eth_percent > 1.022*self.eth_historical_percent and  eth_percent > 50):
+					self.type_of_trade = 'ETH'
+				elif (eth_percent > 1.022*self.eth_historical_percent and  eth_percent > 50) and btc_percent < 0.978*self.btc_historical_percent:
+					self.type_of_trade = 'ETH'
 
 				self.trades.append(BotTrade(self.prices,stopLoss= 0.001))
 
