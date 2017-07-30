@@ -44,8 +44,6 @@ class BotStrategy(object):
 
 	def evaluatePositions(self):
 		openTrades = []
-
-
 		for trade in self.trades:
 			if (trade.status == "OPEN"):
 				openTrades.append(trade)
@@ -59,7 +57,7 @@ class BotStrategy(object):
 
 			btc_percent = (btc_positive2/btc_total2)*100
 
-			btc_historical_tweets, self.btc_sinceid = get_tweets_test.get_tweets(10, self.btc_sinceID, bitcoin_query)
+			btc_historical_tweets, self.btc_sinceid = get_tweets_test.get_tweets(15, self.btc_sinceID, bitcoin_query)
 			btc_total_score, btc_positive, btc_negative, btc_total = get_tweets_test.classify(btc_historical_tweets)
 			self.btc_historical_positive = self.btc_historical_positive + btc_positive
 			self.btc_historical_negative = self.btc_historical_negative + btc_negative
@@ -74,7 +72,7 @@ class BotStrategy(object):
 			eth_total_score2, eth_positive2, eth_negative2, eth_total2 = get_tweets_test.classify(eth_tweets)
 			eth_percent = (eth_positive2/eth_total2)*100
 
-			eth_historical_tweets, self.eth_sinceID = get_tweets_test.get_tweets(10, self.eth_sinceID, ethereum_query)
+			eth_historical_tweets, self.eth_sinceID = get_tweets_test.get_tweets(15, self.eth_sinceID, ethereum_query)
 			eth_total_score, eth_positive, eth_negative, eth_total = get_tweets_test.classify(eth_historical_tweets)
 			self.eth_historical_positive = self.eth_historical_percent + eth_positive
 			self.eth_historical_negative = self.eth_historical_negative + eth_negative
@@ -83,8 +81,8 @@ class BotStrategy(object):
 
 			self.eth_historical_percent = (self.eth_historical_positive/self.eth_historical_total)*100
 
-
-			if ((eth_percent > 1.022*self.eth_historical_percent and  eth_percent > 50) or btc_percent < 0.978*self.btc_historical_percent):
+			
+			if ( self.btc_historical_total > 10000 and (eth_percent > 1.022*self.eth_historical_percent and  eth_percent > 50) or btc_percent < 0.978*self.btc_historical_percent):
 
 				if btc_percent < 0.978*self.btc_historical_percent:
 					self.type_of_trade = 'BTC'
@@ -103,7 +101,6 @@ class BotStrategy(object):
 		for trade in openTrades:
 
 			if (self.type_of_trade == 'BTC'):
-
 
 				bitcoin_query = 'BTC AND Bitcoin'
 				btc_tweets, sinceid_recent = get_tweets_test.get_tweets(1,0,bitcoin_query)
@@ -129,7 +126,6 @@ class BotStrategy(object):
 					time.sleep(60*3)
 
 			if (self.type_of_trade == 'ETH'):
-
 				ethereum_query = 'Ethereum AND ETH'
 				eth_tweets, sinceid_recent = get_tweets_test.get_tweets(1,0,ethereum_query)
 
