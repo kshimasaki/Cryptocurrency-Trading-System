@@ -19,12 +19,14 @@ class BotStrategy(object):
 		self.btc_historical_score = 0
 		self.btc_historical_total = 0
 		self.btc_sinceID = 0
+		self.btc_trading_percent = 0
 		self.eth_historical_percent = 0
 		self.eth_historical_positive = 0
 		self.eth_historical_negative = 0
 		self.eth_historical_score = 0
 		self.eth_historical_total = 0
 		self.eth_sinceID = 0
+		self.eth_trading_percent = 0
 		self.type_of_trade = ''
 
 	def tick(self,candlestick):
@@ -91,12 +93,16 @@ class BotStrategy(object):
 				if((eth_percent > 1.022*self.eth_historical_percent and  eth_percent > 50) or btc_percent < 0.978*self.btc_historical_percent):
 
 					if btc_percent < 0.978*self.btc_historical_percent:
+						self.btc_trading_percent = btc_percent
 						self.type_of_trade = 'BTC'
 						self.trades.append(BotTrade(self.prices,stopLoss= 0.001))
 					elif(eth_percent > 1.022*self.eth_historical_percent and  eth_percent > 50):
+						self.eth_trading_percent = eth_percent
 						self.type_of_trade = 'ETH'
 						self.trades.append(BotTrade(self.prices,stopLoss= 0.001))
 					elif (eth_percent > 1.022*self.eth_historical_percent and  eth_percent > 50) and btc_percent < 0.978*self.btc_historical_percent:
+						self.eth_trading_percent = eth_percent
+
 						self.type_of_trade = 'ETH'
 						self.trades.append(BotTrade(self.prices,stopLoss= 0.001))
 					else:
@@ -129,7 +135,7 @@ class BotStrategy(object):
 				#
 				# self.btc_historical_percent = (self.btc_historical_positive / self.btc_historical_total) * 100
 
-				if (btc_percent >= self.btc_historical_percent):
+				if (btc_percent >= self.btc_trading_percent):
 					price = self.conn.api_query("returnTicker",{"currencyPair":'USDT_BTC'})
 					self.currentClose = price["BTC_ETH"]['last']
 					trade.close(self.currentClose)
@@ -152,7 +158,7 @@ class BotStrategy(object):
 
 				self.eth_historical_percent = (self.eth_historical_positive/self.eth_historical_total)*100
 
-				if (eth_percent <= self.eth_historical_percent):
+				if (eth_percent <= self.eth_trading_percent):
 					price = self.conn.api_query("returnTicker",{"currencyPair":'USDT_BTC'})
 					self.currentClose = price["BTC_ETH"]['last']
 					trade.close(self.currentClose)
