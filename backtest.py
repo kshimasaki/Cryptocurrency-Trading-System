@@ -7,7 +7,7 @@ def main(argv):
 
 	strategy = BotStrategy()
 
-	for i in range(200):
+	for i in range(1000):
 		strategy.tick(chart)
 
 if __name__ == "__main__":

@@ -135,7 +135,7 @@ class BotStrategy(object):
 				#
 				# self.btc_historical_percent = (self.btc_historical_positive / self.btc_historical_total) * 100
 
-				if (btc_percent >= self.btc_trading_percent):
+				if (btc_percent >= 1.022*self.btc_trading_percent):
 					price = self.conn.api_query("returnTicker",{"currencyPair":'USDT_BTC'})
 					self.currentClose = price["BTC_ETH"]['last']
 					trade.close(self.currentClose)
@@ -158,7 +158,7 @@ class BotStrategy(object):
 
 				self.eth_historical_percent = (self.eth_historical_positive/self.eth_historical_total)*100
 
-				if (eth_percent <= self.eth_trading_percent):
+				if (eth_percent <= 0.978*self.eth_trading_percent):
 					price = self.conn.api_query("returnTicker",{"currencyPair":'USDT_BTC'})
 					self.currentClose = price["BTC_ETH"]['last']
 					trade.close(self.currentClose)
