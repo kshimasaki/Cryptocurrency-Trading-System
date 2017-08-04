@@ -1,6 +1,6 @@
 from botlog import BotLog
 from bottrade import BotTrade
-import get_tweets_test
+import tweets
 from poloniex import poloniex
 import time
 import tweepy
@@ -53,8 +53,8 @@ class BotStrategy(object):
 			if (self.btc_historical_total < 50000):
 				bitcoin_query = 'BTC AND Bitcoin AND Price'
 
-				btc_historical_tweets, self.btc_sinceid = get_tweets_test.get_tweets(30, self.btc_sinceID, bitcoin_query)
-				btc_total_score, btc_positive, btc_negative, btc_total = get_tweets_test.classify(btc_historical_tweets)
+				btc_historical_tweets, self.btc_sinceid = tweets.get_tweets(30, self.btc_sinceID, bitcoin_query)
+				btc_total_score, btc_positive, btc_negative, btc_total = tweets.classify(btc_historical_tweets)
 				self.btc_historical_positive = self.btc_historical_positive + btc_positive
 				self.btc_historical_negative = self.btc_historical_negative + btc_negative
 				self.btc_historical_score = self.btc_historical_score + btc_total_score
@@ -63,13 +63,13 @@ class BotStrategy(object):
 				self.btc_historical_percent = (self.btc_historical_positive / self.btc_historical_total) * 100
 
 				ethereum_query = 'Ethereum AND ETH AND Price'
-				#eth_tweets, sinceid_recent = get_tweets_test.get_tweets(3,0,ethereum_query)
+				#eth_tweets, sinceid_recent = tweets.get_tweets(3,0,ethereum_query)
 
-				#eth_total_score2, eth_positive2, eth_negative2, eth_total2 = get_tweets_test.classify(eth_tweets)
+				#eth_total_score2, eth_positive2, eth_negative2, eth_total2 = tweets.classify(eth_tweets)
 				#eth_percent = (eth_positive2/eth_total2)*100
 
-				eth_historical_tweets, self.eth_sinceID = get_tweets_test.get_tweets(30, self.eth_sinceID, ethereum_query)
-				eth_total_score, eth_positive, eth_negative, eth_total = get_tweets_test.classify(eth_historical_tweets)
+				eth_historical_tweets, self.eth_sinceID = tweets.get_tweets(30, self.eth_sinceID, ethereum_query)
+				eth_total_score, eth_positive, eth_negative, eth_total = tweets.classify(eth_historical_tweets)
 				self.eth_historical_positive = self.eth_historical_percent + eth_positive
 				self.eth_historical_negative = self.eth_historical_negative + eth_negative
 				self.eth_historical_score = self.eth_historical_score + eth_total_score
@@ -80,14 +80,14 @@ class BotStrategy(object):
 			elif (self.btc_historical_total > 50000):
 				bitcoin_query = 'BTC AND Bitcoin AND Price'
 
-				btc_tweets, sinceid_recent = get_tweets_test.get_tweets(3,0,bitcoin_query)
-				btc_total_score2, btc_positive2, btc_negative2, btc_total2 = get_tweets_test.classify(btc_tweets)
+				btc_tweets, sinceid_recent = tweets.get_tweets(3,0,bitcoin_query)
+				btc_total_score2, btc_positive2, btc_negative2, btc_total2 = tweets.classify(btc_tweets)
 				btc_percent = (btc_positive2/btc_total2)*100
 
 				ethereum_query = 'Ethereum AND ETH AND Price'
 
-				eth_tweets, sinceid_recent = get_tweets_test.get_tweets(3,0,ethereum_query)
-				eth_total_score2, eth_positive2, eth_negative2, eth_total2 = get_tweets_test.classify(eth_tweets)
+				eth_tweets, sinceid_recent = tweets.get_tweets(3,0,ethereum_query)
+				eth_total_score2, eth_positive2, eth_negative2, eth_total2 = tweets.classify(eth_tweets)
 				eth_percent = (eth_positive2/eth_total2)*100
 
 				if((eth_percent > 1.022*self.eth_historical_percent and  eth_percent > 50) or btc_percent < 0.978*self.btc_historical_percent):
@@ -95,16 +95,16 @@ class BotStrategy(object):
 					if btc_percent < 0.978*self.btc_historical_percent:
 						self.btc_trading_percent = btc_percent
 						self.type_of_trade = 'BTC'
-						self.trades.append(BotTrade(self.prices,stopLoss= 0.001))
+						self.trades.append(BotTrade(self.prices,stopLoss= 0.01))
 					elif(eth_percent > 1.022*self.eth_historical_percent and  eth_percent > 50):
 						self.eth_trading_percent = eth_percent
 						self.type_of_trade = 'ETH'
-						self.trades.append(BotTrade(self.prices,stopLoss= 0.001))
+						self.trades.append(BotTrade(self.prices,stopLoss= 0.01))
 					elif (eth_percent > 1.022*self.eth_historical_percent and  eth_percent > 50) and btc_percent < 0.978*self.btc_historical_percent:
 						self.eth_trading_percent = eth_percent
 
 						self.type_of_trade = 'ETH'
-						self.trades.append(BotTrade(self.prices,stopLoss= 0.001))
+						self.trades.append(BotTrade(self.prices,stopLoss= 0.01))
 					else:
 						self.type_of_trade = ''
 
@@ -120,14 +120,14 @@ class BotStrategy(object):
 			if (self.type_of_trade == 'BTC'):
 
 				bitcoin_query = 'BTC AND Bitcoin AND Price'
-				btc_tweets, sinceid_recent = get_tweets_test.get_tweets(3,0,bitcoin_query)
+				btc_tweets, sinceid_recent = tweets.get_tweets(3,0,bitcoin_query)
 
-				btc_total_score2, btc_positive2, btc_negative2, btc_total2 = get_tweets_test.classify(btc_tweets)
+				btc_total_score2, btc_positive2, btc_negative2, btc_total2 = tweets.classify(btc_tweets)
 
 				btc_percent = (btc_positive2/btc_total2)*100
 
-				# btc_historical_tweets, self.btc_sinceid = get_tweets_test.get_tweets(15, self.btc_sinceID, bitcoin_query)
-				# btc_total_score, btc_positive, btc_negative, btc_total = get_tweets_test.classify(btc_historical_tweets)
+				# btc_historical_tweets, self.btc_sinceid = tweets.get_tweets(15, self.btc_sinceID, bitcoin_query)
+				# btc_total_score, btc_positive, btc_negative, btc_total = tweets.classify(btc_historical_tweets)
 				# self.btc_historical_positive = self.btc_historical_positive + btc_positive
 				# self.btc_historical_negative = self.btc_historical_negative + btc_negative
 				# self.btc_historical_score = self.btc_historical_score + btc_total_score
@@ -144,13 +144,13 @@ class BotStrategy(object):
 
 			if (self.type_of_trade == 'ETH'):
 				ethereum_query = 'Ethereum AND ETH AND Price'
-				eth_tweets, sinceid_recent = get_tweets_test.get_tweets(3,0,ethereum_query)
+				eth_tweets, sinceid_recent = tweets.get_tweets(3,0,ethereum_query)
 
-				eth_total_score2, eth_positive2, eth_negative2, eth_total2 = get_tweets_test.classify(eth_tweets)
+				eth_total_score2, eth_positive2, eth_negative2, eth_total2 = tweets.classify(eth_tweets)
 				eth_percent = (eth_positive2/eth_total2)*100
 
-				# eth_historical_tweets, self.eth_sinceID = get_tweets_test.get_tweets(15, self.eth_sinceID, ethereum_query)
-				# eth_total_score, eth_positive, eth_negative, eth_total = get_tweets_test.classify(eth_historical_tweets)
+				# eth_historical_tweets, self.eth_sinceID = tweets.get_tweets(15, self.eth_sinceID, ethereum_query)
+				# eth_total_score, eth_positive, eth_negative, eth_total = tweets.classify(eth_historical_tweets)
 				# self.eth_historical_positive = self.eth_historical_percent + eth_positive
 				# self.eth_historical_negative = self.eth_historical_negative + eth_negative
 				# self.eth_historical_score = self.eth_historical_score + eth_total_score
