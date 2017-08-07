@@ -78,13 +78,13 @@ class BotStrategy(object):
 				self.eth_historical_percent = (self.eth_historical_positive/self.eth_historical_total)*100
 
 			elif (self.btc_historical_total > 50000):
-				bitcoin_query = 'BTC AND Bitcoin AND Price'
+				bitcoin_query = 'BTC AND Bitcoin'
 
 				btc_tweets, sinceid_recent = tweets.get_tweets(3,0,bitcoin_query)
 				btc_total_score2, btc_positive2, btc_negative2, btc_total2 = tweets.classify(btc_tweets)
 				btc_percent = (btc_positive2/btc_total2)*100
 
-				ethereum_query = 'Ethereum AND ETH AND Price'
+				ethereum_query = 'Ethereum AND ETH'
 
 				eth_tweets, sinceid_recent = tweets.get_tweets(3,0,ethereum_query)
 				eth_total_score2, eth_positive2, eth_negative2, eth_total2 = tweets.classify(eth_tweets)

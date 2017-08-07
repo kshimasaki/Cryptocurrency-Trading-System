@@ -129,22 +129,3 @@ def classify(tweets):
             negative = negative - 1.0
 
     return total_score, positive, negative, len(tweets)
-
-#my_tweets = get_tweets(50)
-
-#total_score,positive,negative, total = classify(my_tweets)
-
-#historical_percent = (positive/total)
-#historical_percent = historical_percent*100
-
-#my_tweets_recent, sinceid = get_tweets(2,0)
-
-
-#total_score1, positive1, negative1, total1 = classify(my_tweets_recent)
-#current_percent = (positive1/total1)*100
-
-#print total_score, positive, negative, total, historical_percent
-#print total_score1, positive1, negative1, total1, current_percent
-
-#if (current_percent > 1.022*historical_percent):
-#    print "price will go up"
