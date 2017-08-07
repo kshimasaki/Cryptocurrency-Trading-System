@@ -1,5 +1,5 @@
 # Cryptocurrency Trading System
-Cryptocurrency Trading System focused on the BTC to ETH exchange
+Cryptocurrency Trading System focused on the BTC to ETH currency pair utilizing the poloniex API wrapper
 
 Buy indicators: 
   1. Buy when current eth sentiment is 2% higher than historical sentiment, and note current eth sentiment
