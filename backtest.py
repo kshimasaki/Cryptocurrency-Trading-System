@@ -1,13 +1,15 @@
 import sys
 from botchart import BotChart
 from botstrategy import BotStrategy
-
+import time
 def main(argv):
 	#chart = BotChart("poloniex","BTC_ETH")
 
 	strategy = BotStrategy()
 
-	for i in range(1000):
+	t_end = time.time() + (60*60*5)
+
+	while time.time() < t_end:
 		strategy.tick()
 
 if __name__ == "__main__":
