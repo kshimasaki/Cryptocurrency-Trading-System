@@ -10,8 +10,4 @@ class BotChart(object):
 
 	def getPoints(self):
 
-		#print self.data.last
 		return self.data.last
-
-
-# not used 
