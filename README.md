@@ -20,3 +20,4 @@ Problems with this:
 
 Solutions:
 1. Lexcion based approach may be better but run time will be really high 
+2. Using NLP to figure out sentiment without given test tweets
