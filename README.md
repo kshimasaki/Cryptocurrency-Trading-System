@@ -24,3 +24,9 @@ Areas that need work:
          Solutions:
          1. Lexcion based approach may be better but run time will be really high 
          2. Using NLP to figure out sentiment without given test tweets
+
+
+Areas that can be implemented:
+
+1. Kelly Criterion for capital allocation
+2. Incorporate multiple currency pairs
