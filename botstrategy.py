@@ -123,6 +123,7 @@ class BotStrategy(object):
 					time.sleep(60)
 
 			elif (self.type_of_trade == 'ETH'):
+				
 				ethereum_query = 'Ethereum AND ETH'
 				eth_tweets, sinceid_recent = tweets.get_tweets(3,0,ethereum_query)
 
