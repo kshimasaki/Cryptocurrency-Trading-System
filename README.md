@@ -8,9 +8,9 @@ Buy indicators:
    2. Buy when current btc sentiment is lower than 7.5% than historical btc sentiment
 
 Sell indicators:
-   1. Sell when current eth sentiment is 5% lower than eth trading percent
+   1. Sell eth when the (recent sentiment - historical)/100 is less than 0.82
    
-   2. Sell when current btc sentiment is 5% lower than btc trading percent
+   2. Sell when current btc sentiment is 2% lower than btc trading percent
 
 
 
@@ -24,3 +24,9 @@ Areas that need work:
          Solutions:
          1. Lexcion based approach may be better but run time will be really high 
          2. Using NLP to figure out sentiment without given test tweets
+
+
+Areas that can be implemented:
+
+1. Kelly Criterion for capital allocation
+2. Incorporate multiple currency pairs
