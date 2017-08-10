@@ -46,7 +46,9 @@ pos_tweets = [('I think the price will go up','positive'),
               ('Bitcoin is great','positive'),
               ('Long now','positive'),
               ('This will recover soon','positive'),
-              ('Has increased price','positive')]
+              ('Has increased price','positive'),
+              ('bullish','positive'),
+              ('This is looking bullish','positive')]
 neg_tweets = [('Prices will go down soon','negative'),
               ('I am scared about bitcoins','negative'),
               ('Bitcoin is slowly dying','negative'),
@@ -67,7 +69,9 @@ neg_tweets = [('Prices will go down soon','negative'),
               ('Take your profits and run','negative'),
               ('There will be a dip soon','negative'),
               ('This wont recover soon','negative'),
-              ('Has decreased price','negative')]
+              ('Has decreased price','negative'),
+              ('bearish','negative'),
+              ('This is looking bearish','negative')]
 
 tweets=[]
 for (words, sentiment) in pos_tweets + neg_tweets:

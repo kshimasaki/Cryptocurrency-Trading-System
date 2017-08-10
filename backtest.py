@@ -2,6 +2,7 @@ import sys
 from botchart import BotChart
 from botstrategy import BotStrategy
 import time
+
 def main(argv):
 	#chart = BotChart("poloniex","BTC_ETH")
 
