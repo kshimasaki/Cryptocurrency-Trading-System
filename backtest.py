@@ -8,7 +8,7 @@ def main(argv):
 
 	strategy = BotStrategy()
 
-	t_end = time.time() + (60*60*5)
+	t_end = time.time() + (60*60*7)
 
 	while time.time() < t_end:
 		strategy.tick()
