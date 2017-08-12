@@ -30,3 +30,4 @@ Areas that can be implemented:
 
 1. Kelly Criterion for capital allocation
 2. Incorporate multiple currency pairs
+3. Sentiment of various cryptos, highest ones are traded
