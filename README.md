@@ -11,6 +11,8 @@ Sell indicators:
    1. Sell eth when the (recent sentiment - historical)/100 is less than ?
    
    2. Sell btc when the (recent sentiment - historical)/100 is less than ?
+   
+   3. *add another sell statment if both eth & btc trade type*
 
 *currently figuring out sell percent*
 added print statments for btc_change statement
