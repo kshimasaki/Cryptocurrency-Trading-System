@@ -13,6 +13,7 @@ Sell indicators:
    2. Sell btc when the (recent sentiment - historical)/100 is less than ?
 
 *currently figuring out sell percent*
+added print statments for btc_change statement
 
 Areas that need work: 
 
@@ -28,6 +29,6 @@ Areas that need work:
 
 Areas that can be implemented:
 
-1. Kelly Criterion for capital allocation
 2. Incorporate multiple currency pairs
 3. Sentiment of various cryptos, highest ones are traded
+
