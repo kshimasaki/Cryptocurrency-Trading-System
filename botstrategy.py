@@ -95,9 +95,9 @@ class BotStrategy(object):
 						self.eth_trading_percent = eth_percent
 						self.type_of_trade = 'ETH'
 						self.trades.append(BotTrade(self.prices,stopLoss= 0.01))
-					elif (eth_percent > 1.075*self.eth_historical_percent and  eth_percent > 50) and btc_percent < 0.925*self.btc_historical_percent:
+					elif (eth_percent > 1.05*self.eth_historical_percent and  eth_percent > 50) and btc_percent < 0.95*self.btc_historical_percent:
 						self.eth_trading_percent = eth_percent
-						self.type_of_trade = 'ETH'
+						self.type_of_trade = 'BTCETH'
 						self.trades.append(BotTrade(self.prices,stopLoss= 0.01))
 					else:
 						self.type_of_trade = ''
@@ -112,7 +112,7 @@ class BotStrategy(object):
 				btc_total_score2, btc_positive2, btc_negative2, btc_total2 = tweets.classify(btc_tweets)
 				btc_percent = (btc_positive2/btc_total2)*100
 
-				btc_change = (btc_percent - self.btc_historical_percent)/100
+				btc_change = (btc_percent - self.btc_historical_percent)
 
 				print "btc change: " + str(btc_change)
 				if (btc_change <= -100):
@@ -130,7 +130,7 @@ class BotStrategy(object):
 				eth_total_score2, eth_positive2, eth_negative2, eth_total2 = tweets.classify(eth_tweets)
 				eth_percent = (eth_positive2/eth_total2)*100
 
-				eth_change = (eth_percent - self.eth_historical_percent)/100
+				eth_change = (eth_percent - self.eth_historical_percent)
 
 				print "eth change: " + str(eth_change)
 				if (eth_change <= 100):
@@ -139,6 +139,34 @@ class BotStrategy(object):
 					trade.close(self.currentClose)
 				else:
 					time.sleep(60)
+
+			elif (self.type_of_trade == 'BTCETH'):
+				bitcoin_query = 'BTC AND Bitcoin AND $BTC'
+				btc_tweets, sinceid_recent = tweets.get_tweets(3,0,bitcoin_query)
+
+				btc_total_score2, btc_positive2, btc_negative2, btc_total2 = tweets.classify(btc_tweets)
+				btc_percent = (btc_positive2/btc_total2)*100
+
+				btc_change = (btc_percent - self.btc_historical_percent)
+
+				ethereum_query = 'Ethereum AND ETH AND $ETH'
+				eth_tweets, sinceid_recent = tweets.get_tweets(3,0,ethereum_query)
+
+				eth_total_score2, eth_positive2, eth_negative2, eth_total2 = tweets.classify(eth_tweets)
+				eth_percent = (eth_positive2/eth_total2)*100
+
+				eth_change = (eth_percent - self.eth_historical_percent)
+
+				print "btc change: " + str(btc_change) + " , eth change: " + str(eth_change)
+
+				if (eth_change <= 100 and btc_change <= -100):
+					price = self.conn.api_query("returnTicker",{"currencyPair":'USDT_BTC'})
+					self.currentClose = price["BTC_ETH"]['last']
+					trade.close(self.currentClose)
+				else:
+					time.sleep(60)
+
+
 			else:
 				price = self.conn.api_query("returnTicker",{"currencyPair":'USDT_BTC'})
 				self.currentClose = price["BTC_ETH"]['last']
