@@ -12,7 +12,7 @@ Buy indicators:
 Sell indicators:
    1. Sell eth when the (recent sentiment - historical)/100 is less than ?
    
-   2. Sell btc when the (recent sentiment - historical)/100 is less than ?
+   2. Sell btc when the (recent sentiment - historical)/100 is greater than or equal to 0
    
    3. *add another sell statment if both eth & btc trade type*
 
