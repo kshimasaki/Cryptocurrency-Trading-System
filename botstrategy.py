@@ -49,7 +49,7 @@ class BotStrategy(object):
 				openTrades.append(trade)
 
 		if (len(openTrades) < self.numSimulTrades):
-			if (self.btc_historical_total <= 50000):
+			if (self.btc_historical_total <= 100000):
 				bitcoin_query = 'BTC AND Bitcoin AND $BTC'
 
 				btc_historical_tweets, self.btc_sinceid = tweets.get_tweets(50, self.btc_sinceID, bitcoin_query)
@@ -72,7 +72,7 @@ class BotStrategy(object):
 
 				self.eth_historical_percent = (self.eth_historical_positive/self.eth_historical_total)*100
 
-			elif (self.btc_historical_total > 50000):
+			elif (self.btc_historical_total > 100000):
 				bitcoin_query = 'BTC AND Bitcoin AND $BTC'
 
 				btc_tweets, sinceid_recent = tweets.get_tweets(3,0,bitcoin_query)
@@ -115,7 +115,7 @@ class BotStrategy(object):
 				btc_change = (btc_percent - self.btc_historical_percent)
 
 				print "btc change: " + str(btc_change)
-				if (btc_change <= -100):
+				if (btc_change >= 0):
 					price = self.conn.api_query("returnTicker",{"currencyPair":'USDT_BTC'})
 					self.currentClose = price["BTC_ETH"]['last']
 					trade.close(self.currentClose)
@@ -133,7 +133,7 @@ class BotStrategy(object):
 				eth_change = (eth_percent - self.eth_historical_percent)
 
 				print "eth change: " + str(eth_change)
-				if (eth_change <= 100):
+				if (eth_change >= 100):
 					price = self.conn.api_query("returnTicker",{"currencyPair":'USDT_BTC'})
 					self.currentClose = price["BTC_ETH"]['last']
 					trade.close(self.currentClose)
