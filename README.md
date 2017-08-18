@@ -1,6 +1,14 @@
 # Cryptocurrency Trading System
 Cryptocurrency Trading System focused on the BTC to ETH currency pair utilizing the poloniex API wrapper
 
+
+Steps:
+1. Query 1,000,000 tweets to calculate historical sentiment of BTC & ETH
+2. Query 500 recent tweets to calculate current sentiment of BTC & ETH
+3. See if buy condition is achieved
+4. Query 500 recent tweets to calculate current sentiment of BTC & ETH
+5. See if sell condition is achieved 
+
 Buy indicators: 
 
    1. Buy when current eth sentiment is greather than 2.2% than historical eth sentiment
@@ -27,4 +35,3 @@ Areas that can be implemented:
 
 2. Incorporate multiple currency pairs
 3. Sentiment of various cryptos, highest ones are traded
-
