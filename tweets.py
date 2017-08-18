@@ -47,11 +47,15 @@ pos_tweets = [('I think the price will go up','positive'),
               ('Long now','positive'),
               ('This will recover soon','positive'),
               ('Has increased price','positive'),
-              ('bullish','positive'),
+              ('BTC looking bullish','positive'),
               ('This is looking bullish','positive'),
               ('Reasons to be excited','positive'),
               ('Surpasses $4000','positive'),
-              ('It is beautiful','positive')]
+              ('It is beautiful','positive'),
+              ('Ethereum will rise soon','positive'),
+              ('ETH looking good','positive'),
+              ('ETH looking bullish','positive'),
+              ('Good things aare coming','positive')]
 neg_tweets = [('Prices will go down soon','negative'),
               ('I am scared about bitcoins','negative'),
               ('Bitcoin is slowly dying','negative'),
@@ -76,7 +80,9 @@ neg_tweets = [('Prices will go down soon','negative'),
               ('bearish','negative'),
               ('This is looking bearish','negative'),
               ('I am going to short','negative'),
-              ('We are in a bubble','negative')]
+              ('We are in a bubble','negative'),
+              ('Ethereum is falling','negative'),
+              ('Steep fall soon','negative')]
 
 tweets=[]
 for (words, sentiment) in (pos_tweets + neg_tweets):
@@ -135,6 +141,7 @@ def classify(tweets):
             positive = positive + 1.0
         if sent == 'negative':
             total_score = total_score - 1.0
-            negative = negative - 1.0
+            negative = negative + 1.0
 
-    return total_score, positive, negative, len(tweets)
+    total = positive + negative
+    return total_score, positive, negative, total
