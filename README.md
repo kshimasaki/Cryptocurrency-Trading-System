@@ -17,19 +17,11 @@ Sell indicators:
    3. *add another sell statment if both eth & btc trade type*
 
 *currently figuring out sell percent*
-added print statments for btc_change statement
 
 Areas that need work: 
 
-    Sentiment is calculated through nltk, where a given set of positive and negative tweets are given
-
-         Problems with this: 
-         1. Testing data set is very incomplete and therefore sentiment is not accurate
-
-         Solutions:
-         1. Lexcion based approach may be better but run time will be really high 
-         2. Using NLP to figure out sentiment without given test tweets
-
+1. Buying and selling conditions
+2. NLP  
 
 Areas that can be implemented:
 
