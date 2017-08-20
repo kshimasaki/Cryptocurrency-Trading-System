@@ -3,7 +3,7 @@ Cryptocurrency Trading System focused on the BTC to ETH currency pair utilizing 
 
 
 Steps:
-1. Query 1,000,000 tweets to calculate historical sentiment of BTC & ETH
+1. Query 100,000 tweets to calculate historical sentiment of BTC & ETH
 2. Query 500 recent tweets to calculate current sentiment of BTC & ETH
 3. See if any of the buy conditions are achieved + note down the type of trade
 4. Query 500 recent tweets to calculate current sentiment of BTC & ETH
