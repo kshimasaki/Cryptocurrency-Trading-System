@@ -51,7 +51,7 @@ class BotStrategy(object):
 				openTrades.append(trade)
 
 		if (len(openTrades) < self.numSimulTrades):
-			if (self.btc_historical_total <= 1000000):
+			if (self.btc_historical_total <= 100000):
 				bitcoin_query = 'BTC OR Bitcoin OR $BTC'
 
 				btc_historical_tweets, self.btc_sinceid = tweets.get_tweets(10, self.btc_sinceID, bitcoin_query)
@@ -74,7 +74,7 @@ class BotStrategy(object):
 
 				self.eth_historical_percent = (self.eth_historical_positive/self.eth_historical_total)*100
 
-			elif (self.btc_historical_total > 1000000):
+			elif (self.btc_historical_total > 100000):
 				bitcoin_query = 'BTC OR Bitcoin OR $BTC'
 
 				btc_tweets, sinceid_recent = tweets.get_tweets(5,0,bitcoin_query)
@@ -87,17 +87,17 @@ class BotStrategy(object):
 				eth_total_score2, eth_positive2, eth_negative2, eth_total2 = tweets.classify(eth_tweets)
 				eth_percent = (eth_positive2/eth_total2)*100
 
-				if((eth_percent > 1.02*self.eth_historical_percent and  eth_percent > 50) or btc_percent < 0.98*self.btc_historical_percent):
+				if((eth_percent > 1.05*self.eth_historical_percent and  eth_percent > 50) or btc_percent < 0.95*self.btc_historical_percent):
 
-					if btc_percent < 0.98*self.btc_historical_percent:
+					if btc_percent < 0.95*self.btc_historical_percent:
 						self.btc_trading_percent = btc_percent
 						self.type_of_trade = 'BTC'
 						self.trades.append(BotTrade(self.prices,stopLoss= 0.01))
-					elif(eth_percent > 1.02*self.eth_historical_percent and  eth_percent > 50):
+					elif(eth_percent > 1.05*self.eth_historical_percent and  eth_percent > 50):
 						self.eth_trading_percent = eth_percent
 						self.type_of_trade = 'ETH'
 						self.trades.append(BotTrade(self.prices,stopLoss= 0.01))
-					elif (eth_percent > 1.02*self.eth_historical_percent and  eth_percent > 50) and btc_percent < 0.98*self.btc_historical_percent:
+					elif (eth_percent > 1.05*self.eth_historical_percent and  eth_percent > 50) and btc_percent < 0.95*self.btc_historical_percent:
 						self.eth_trading_percent = eth_percent
 						self.type_of_trade = 'BTCETH'
 						self.trades.append(BotTrade(self.prices,stopLoss= 0.01))
