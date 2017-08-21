@@ -1,9 +1,8 @@
 from botlog import BotLog
 from bottrade import BotTrade
 import tweets
-from poloniex import poloniex
 import time
-
+from bittrex import bittrex
 
 class BotStrategy(object):
 	def __init__(self):
@@ -29,9 +28,9 @@ class BotStrategy(object):
 		self.type_of_trade = ''
 
 	def tick(self):
-		self.conn = poloniex('4ZY2C395-6I1FSGK4-HMOBG4CY-40UPC0O7','d8fc1ac2e03619489853fff56356f0a364f2d9a23ecad54f9536763e042226d8d6b3faa6c40b97de0ad5f5413c3d97e05b18d58d74007b96059757593591a1c3')
-		currentPrice = self.conn.api_query("returnTicker",{"currencyPair":'USDT_BTC'})
-		self.prices = currentPrice["BTC_ETH"]['last']
+		self.api = bittrex('5d68421a77974c5cbb302565ed59abd8','67a17b2dc6e0453bad86ccfba7d84c8b')
+		currentPrice = self.api.getticker('BTC-ETH')
+		self.prices = currentPrice['Ask']
 
 		#self.currentClose = float(candlestick['close'])
 		#self.closes.append(self.currentClose)
@@ -71,7 +70,10 @@ class BotStrategy(object):
 				self.eth_historical_total = self.eth_historical_total + eth_total
 
 				self.eth_historical_percent = (self.eth_historical_positive/self.eth_historical_total)*100
-				
+
+				if self.btc_historical_total >= 100000:
+					print "Historical Tweets Analyzed"
+
 			elif (self.btc_historical_total > 100000):
 				bitcoin_query = 'BTC OR Bitcoin OR $BTC'
 
@@ -85,22 +87,23 @@ class BotStrategy(object):
 				eth_total_score2, eth_positive2, eth_negative2, eth_total2 = tweets.classify(eth_tweets)
 				eth_percent = (eth_positive2/eth_total2)*100
 
-				if((eth_percent > 1.05*self.eth_historical_percent and  eth_percent > 50) or btc_percent < 0.95*self.btc_historical_percent):
+				if((eth_percent > 1.075*self.eth_historical_percent and  eth_percent > 50) or btc_percent < 0.925*self.btc_historical_percent):
 
-					if btc_percent < 0.95*self.btc_historical_percent:
+					if btc_percent < 0.925*self.btc_historical_percent:
 						self.btc_trading_percent = btc_percent
 						self.type_of_trade = 'BTC'
 						self.trades.append(BotTrade(self.prices,stopLoss= 0.01))
-					elif(eth_percent > 1.05*self.eth_historical_percent and  eth_percent > 50):
+					elif(eth_percent > 1.075*self.eth_historical_percent and  eth_percent > 50):
 						self.eth_trading_percent = eth_percent
 						self.type_of_trade = 'ETH'
 						self.trades.append(BotTrade(self.prices,stopLoss= 0.01))
-					elif (eth_percent > 1.05*self.eth_historical_percent and  eth_percent > 50) and btc_percent < 0.95*self.btc_historical_percent:
+					elif (eth_percent > 1.075*self.eth_historical_percent and  eth_percent > 50) and btc_percent < 0.925*self.btc_historical_percent:
 						self.eth_trading_percent = eth_percent
 						self.type_of_trade = 'BTCETH'
 						self.trades.append(BotTrade(self.prices,stopLoss= 0.01))
 					else:
 						self.type_of_trade = ''
+				time.sleep(60)
 
 		for trade in openTrades:
 
@@ -116,9 +119,9 @@ class BotStrategy(object):
 				btc_change = btc_change * 100
 
 				print "btc change: " + str(btc_change)
-				if (btc_change >= 2.2):
-					price = self.conn.api_query("returnTicker",{"currencyPair":'USDT_BTC'})
-					self.currentClose = price["BTC_ETH"]['last']
+				if (btc_change >= 75):
+					price = self.api.getticker('BTC-ETH')
+					self.currentClose = price['Bid']
 					trade.close(self.currentClose)
 				else:
 					time.sleep(60)
@@ -135,9 +138,9 @@ class BotStrategy(object):
 				eth_change = eth_change * 100
 
 				print "eth change: " + str(eth_change)
-				if (eth_change <= -2.2):
-					price = self.conn.api_query("returnTicker",{"currencyPair":'USDT_BTC'})
-					self.currentClose = price["BTC_ETH"]['last']
+				if (eth_change <= -75):
+					price = self.api.getticker('BTC-ETH')
+					self.currentClose = price['Bid']
 					trade.close(self.currentClose)
 				else:
 					time.sleep(60)
@@ -163,17 +166,16 @@ class BotStrategy(object):
 
 				print "btc change: " + str(btc_change) + " , eth change: " + str(eth_change)
 
-				if (eth_change <= -2.2 and btc_change >= 2.2):
-					price = self.conn.api_query("returnTicker",{"currencyPair":'USDT_BTC'})
-					self.currentClose = price["BTC_ETH"]['last']
+				if (eth_change <= -75 and btc_change >= 75):
+					price = self.api.getticker('BTC-ETH')
+					self.currentClose = price['Bid']
 					trade.close(self.currentClose)
 				else:
 					time.sleep(60)
 
-
 			else:
-				price = self.conn.api_query("returnTicker",{"currencyPair":'USDT_BTC'})
-				self.currentClose = price["BTC_ETH"]['last']
+				price = self.api.getticker('BTC-ETH')
+				self.currentClose = price['Bid']
 				trade.close(self.currentClose)
 
 	def updateOpenTrades(self):
