@@ -1,6 +1,7 @@
 # Cryptocurrency Trading System
-Cryptocurrency Trading System focused on the BTC to ETH currency pair utilizing the poloniex API wrapper
+Cryptocurrency Trading System focused on the BTC to ETH currency pair utilizing the bittrex API wrapper
 
+*bittrex api wrapper: https://github.com/ndri/python-bittrex *
 
 Steps:
 1. Query 100,000 tweets to calculate historical sentiment of BTC & ETH
