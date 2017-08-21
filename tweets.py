@@ -88,7 +88,7 @@ neg_tweets = [('Prices will go down soon','negative'),
 
 tweets=[]
 for (words, sentiment) in (pos_tweets + neg_tweets):
-    words_filtered = [e.lower() for e in words.split() if len(e) >= 3]
+    words_filtered = [e.lower() for e in words.split() if len(e) >= 2]
     tweets.append((words_filtered,sentiment))
 
 
