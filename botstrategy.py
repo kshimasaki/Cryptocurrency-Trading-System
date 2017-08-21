@@ -71,7 +71,7 @@ class BotStrategy(object):
 				self.eth_historical_total = self.eth_historical_total + eth_total
 
 				self.eth_historical_percent = (self.eth_historical_positive/self.eth_historical_total)*100
-
+				
 			elif (self.btc_historical_total > 100000):
 				bitcoin_query = 'BTC OR Bitcoin OR $BTC'
 
@@ -184,4 +184,3 @@ class BotStrategy(object):
 	def showPositions(self):
 		for trade in self.trades:
 			trade.showTrade()
-
