@@ -184,3 +184,4 @@ class BotStrategy(object):
 	def showPositions(self):
 		for trade in self.trades:
 			trade.showTrade()
+
