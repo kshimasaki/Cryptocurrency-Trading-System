@@ -1,5 +1,4 @@
 import sys
-from botchart import BotChart
 from botstrategy import BotStrategy
 import time
 

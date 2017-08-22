@@ -6,4 +6,4 @@ class BotLog(object):
 
 	def log(self, message):
 		today = datetime.now().strftime('%H:%M:%S')
-		print "Date: " + str(today) + " " + message
+		print "Time: " + str(today) + " " + message
