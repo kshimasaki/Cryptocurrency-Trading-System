@@ -38,7 +38,6 @@ class BotStrategy(object):
 
 		#self.currentClose = float(candlestick['close'])
 		#self.closes.append(self.currentClose)
-		self.prices = round(self.prices,8)
 
 		self.output.log("Price: "+ str(self.prices))
 
@@ -82,13 +81,13 @@ class BotStrategy(object):
 			elif (self.btc_historical_total > 100000):
 				bitcoin_query = 'BTC OR Bitcoin OR $BTC'
 
-				btc_tweets, sinceid_recent = tweets.get_tweets(5,0,bitcoin_query)
+				btc_tweets, sinceid_recent = tweets.get_tweets(50,0,bitcoin_query)
 				btc_total_score2, btc_positive2, btc_negative2, btc_total2 = tweets.classify(btc_tweets)
 				btc_percent = (btc_positive2/btc_total2)*100
 
 				ethereum_query = 'Ethereum OR ETH OR $ETH'
 
-				eth_tweets, sinceid_recent = tweets.get_tweets(5,0,ethereum_query)
+				eth_tweets, sinceid_recent = tweets.get_tweets(50,0,ethereum_query)
 				eth_total_score2, eth_positive2, eth_negative2, eth_total2 = tweets.classify(eth_tweets)
 				eth_percent = (eth_positive2/eth_total2)*100
 
@@ -110,7 +109,8 @@ class BotStrategy(object):
 						self.trades.append(BotTrade(self.prices,stopLoss= 0.01))
 					else:
 						self.type_of_trade = ''
-				time.sleep(60)
+						
+				time.sleep(60*5)
 
 		for trade in openTrades:
 
@@ -124,7 +124,7 @@ class BotStrategy(object):
 
 				self.btc_sentiments.append(btc_percent)
 
-				if (len(self.btc_sentiments) > 10):
+				if (len(self.btc_sentiments) > 30):
 
 					mean_sentiment = np.mean(self.btc_sentiments)
 					std_sentiment = np.std(self.btc_sentiments)
@@ -134,7 +134,7 @@ class BotStrategy(object):
 						self.currentClose = price['Bid']
 						trade.close(self.currentClose)
 				else:
-					time.sleep(60)
+					time.sleep(60*5)
 
 			elif (self.type_of_trade == 'ETH'):
 
@@ -146,7 +146,7 @@ class BotStrategy(object):
 
 				self.eth_sentiments.append(eth_percent)
 
-				if (len(self.eth_sentiments) > 10):
+				if (len(self.eth_sentiments) > 30):
 
 					mean_sentiment = np.mean(self.eth_sentiments)
 					std_sentiment = np.std(self.eth_sentiments)
@@ -156,7 +156,7 @@ class BotStrategy(object):
 						self.currentClose = price['Bid']
 						trade.close(self.currentClose)
 				else:
-					time.sleep(60)
+					time.sleep(60*5)
 
 			elif (self.type_of_trade == 'BTCETH'):
 				bitcoin_query = 'BTC OR Bitcoin OR $BTC'
