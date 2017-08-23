@@ -6,26 +6,24 @@ The python wrapper to connect with the bittrex API is given [here](https://githu
 
 **Buy indicators: **
 
-   1. Buy ETH when current eth sentiment is greather than 3.7% than historical eth sentiment
+   1. Buy ETH when current eth sentiment is greather than 4.2% than historical eth sentiment
    
-   2. Buy when current btc sentiment is lower than 5% than historical btc sentiment
+   2. Buy ETH when current btc sentiment is lower than 5.7% than historical btc sentiment
    
-
+   '''
+   While researching trends and formulating a buy strategy, I realized that the price change of ethereum is less resistant to changes in sentiment when compared to bitcoin. 
+   
+   '''
+   
 **Sell indicators: **
 
-   1. Sell eth trade when the percent change of sentiment is less than 2.2%
+Sell indicators are only checked after 30 minutes after buying
+
+   1. Sell ETH when BTC sentiment is 0.800 standard deviations above the mean
    
-   2. Sell btc trade when the percent change of sentiment is greater than 2.2%
+   2. Sell ETH when ETH sentiment is 0.674 standard deviations below the mean
    
-
-*currently figuring out sell percent*
-
-Areas that need work: 
-
-1. Buying and selling conditions
-2. NLP  
-
-Areas that can be implemented:
-
-2. Incorporate multiple currency pairs
-3. Sentiment of various cryptos, highest ones are trad
+   '''
+   While researching sell strategies, I realized that the distribution of number positive tweets in a sample of 5,000 tweets is roughly normal. As a result, the sell strategies is a result of 
+   
+   '''
