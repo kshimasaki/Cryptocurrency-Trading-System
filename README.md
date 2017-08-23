@@ -4,20 +4,19 @@ Past research has proven the correlation between the sentiment and price of a st
 
 The python wrapper to connect with the bittrex API is given [here](https://github.com/ndri/python-bittrex)
 
-Buy indicators: 
+**Buy indicators: **
 
-   1. Buy when current eth sentiment is greather than 5% than historical eth sentiment
+   1. Buy ETH when current eth sentiment is greather than 3.7% than historical eth sentiment
    
    2. Buy when current btc sentiment is lower than 5% than historical btc sentiment
    
-   3. Buy when current btc sentiment is lower than 5% and eth sentiment is greater than 5%
 
-Sell indicators:
+**Sell indicators: **
+
    1. Sell eth trade when the percent change of sentiment is less than 2.2%
    
    2. Sell btc trade when the percent change of sentiment is greater than 2.2%
    
-   3. Sell ethbtc trade when eth sentiment change is less than 2.2% and btc sentiment change is greater than 2.2%
 
 *currently figuring out sell percent*
 
