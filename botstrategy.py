@@ -92,21 +92,17 @@ class BotStrategy(object):
 				eth_total_score2, eth_positive2, eth_negative2, eth_total2 = tweets.classify(eth_tweets)
 				eth_percent = (eth_positive2/eth_total2)*100
 
-				if((eth_percent > 1.10 *self.eth_historical_percent and  eth_percent > 60) or btc_percent < 0.90*self.btc_historical_percent):
+				if(eth_percent > 1.042 *self.eth_historical_percent or btc_percent < 0.943*self.btc_historical_percent):
 
-					if btc_percent < 0.90*self.btc_historical_percent:
+					if btc_percent < 0.943*self.btc_historical_percent:
 						self.btc_sentiments = []
 						self.btc_trading_percent = btc_percent
 						self.type_of_trade = 'BTC'
 						self.trades.append(BotTrade(self.prices,stopLoss= 0.01))
-					elif(eth_percent > 1.10*self.eth_historical_percent and  eth_percent > 60):
+					elif(eth_percent > 1.042*self.eth_historical_percent):
 						self.eth_sentiments = []
 						self.eth_trading_percent = eth_percent
 						self.type_of_trade = 'ETH'
-						self.trades.append(BotTrade(self.prices,stopLoss= 0.01))
-					elif (eth_percent > 1.10 *self.eth_historical_percent and  eth_percent > 60) and btc_percent < 0.90*self.btc_historical_percent:
-						self.eth_trading_percent = eth_percent
-						self.type_of_trade = 'BTCETH'
 						self.trades.append(BotTrade(self.prices,stopLoss= 0.01))
 					else:
 						self.type_of_trade = ''
@@ -130,7 +126,7 @@ class BotStrategy(object):
 					mean_sentiment = np.mean(self.btc_sentiments)
 					std_sentiment = np.std(self.btc_sentiments)
 
-					if btc_percent >= mean_sentiment + ((1.282 * std_sentiment)/sqrt(len(self.btc_sentiments))) :
+					if btc_percent >= mean_sentiment + ((0.800 * std_sentiment)/sqrt(len(self.btc_sentiments))) :
 						price = self.api.getticker('BTC-ETH')
 						self.currentClose = price['Bid']
 						trade.close(self.currentClose)
@@ -152,41 +148,12 @@ class BotStrategy(object):
 					mean_sentiment = np.mean(self.eth_sentiments)
 					std_sentiment = np.std(self.eth_sentiments)
 
-					if eth_percent <= mean_sentiment - ((1.282 * std_sentiment)/sqrt(len(self.eth_sentiments))) :
+					if eth_percent <= mean_sentiment - ((0.674 * std_sentiment)/sqrt(len(self.eth_sentiments))) :
 						price = self.api.getticker('BTC-ETH')
 						self.currentClose = price['Bid']
 						trade.close(self.currentClose)
 				else:
 					time.sleep(60)
-
-			elif (self.type_of_trade == 'BTCETH'):
-				bitcoin_query = 'BTC OR Bitcoin OR $BTC'
-				btc_tweets, sinceid_recent = tweets.get_tweets(5,0,bitcoin_query)
-
-				btc_total_score2, btc_positive2, btc_negative2, btc_total2 = tweets.classify(btc_tweets)
-				btc_percent = (btc_positive2/btc_total2)*100
-
-				btc_change = (btc_percent - self.btc_trading_percent)/(self.btc_historical_percent)
-				btc_change = btc_change * 100
-
-				ethereum_query = 'Ethereum OR ETH OR $ETH'
-				eth_tweets, sinceid_recent = tweets.get_tweets(5,0,ethereum_query)
-
-				eth_total_score2, eth_positive2, eth_negative2, eth_total2 = tweets.classify(eth_tweets)
-				eth_percent = (eth_positive2/eth_total2)*100
-
-				eth_change = (eth_percent - self.eth_trading_percent)/(self.eth_historical_percent)
-				eth_change = eth_change * 100
-
-				print "btc change: " + str(btc_change) + " , eth change: " + str(eth_change)
-
-				if (eth_change <= -75 and btc_change >= 75):
-					price = self.api.getticker('BTC-ETH')
-					self.currentClose = price['Bid']
-					trade.close(self.currentClose)
-				else:
-					time.sleep(60)
-
 			else:
 				price = self.api.getticker('BTC-ETH')
 				self.currentClose = price['Bid']
