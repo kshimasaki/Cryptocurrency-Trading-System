@@ -2,14 +2,8 @@
 
 Past research has proven the correlation between the sentiment and price of a stock. This trading system aims to utilize the changes of sentiment surrounding bitcoin and ethereum to predict future trends of the BTC-ETH currency pair. Comparing the sentiment of the last 5,000 tweets to the sentiment of the historical 100,000 tweets provides aids in forumlating a hypothesis of price trends in the near future. 
 
-*bittrex api wrapper: https://github.com/ndri/python-bittrex *
-
-Steps:
-1. Query 100,000 tweets to calculate historical sentiment of BTC & ETH
-2. Query 500 recent tweets to calculate current sentiment of BTC & ETH
-3. See if any of the buy conditions are achieved + note down the type of trade
-4. Query 500 recent tweets to calculate current sentiment of BTC & ETH
-5. See if corresponding sell condition is achieved 
+The python wrapper to connect with the bittrex API is given here:
+> https://github.com/ndri/python-bittrex
 
 Buy indicators: 
 
