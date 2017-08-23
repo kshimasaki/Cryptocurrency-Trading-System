@@ -35,4 +35,4 @@ Areas that need work:
 Areas that can be implemented:
 
 2. Incorporate multiple currency pairs
-3. Sentiment of various cryptos, highest ones are traded
+3. Sentiment of various cryptos, highest ones are trad
