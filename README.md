@@ -4,7 +4,7 @@ Past research has proven the correlation between the sentiment and price of a st
 
 The python wrapper to connect with the bittrex API is given [here](https://github.com/ndri/python-bittrex)
 
-**Buy indicators: **
+## Buy indicators: 
 
    1. Buy ETH when current eth sentiment is greather than 4.2% than historical eth sentiment
    
@@ -13,7 +13,7 @@ The python wrapper to connect with the bittrex API is given [here](https://githu
    > While researching trends and formulating a buy strategy, I realized that the price change of ethereum is less resistant to changes in sentiment when compared to bitcoin. 
    
    
-**Sell indicators: **
+## Sell indicators: 
 
 Sell indicators are only checked after 30 minutes after buying
 
