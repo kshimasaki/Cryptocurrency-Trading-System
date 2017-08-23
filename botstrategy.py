@@ -39,7 +39,7 @@ class BotStrategy(object):
 		#self.currentClose = float(candlestick['close'])
 		#self.closes.append(self.currentClose)
 
-		self.output.log("Price: "+ str(self.prices))
+		self.output.log("Price: "+ '{0:.8f}'.format(self.prices))
 
 		self.evaluatePositions()
 		self.updateOpenTrades()
@@ -55,7 +55,7 @@ class BotStrategy(object):
 			if (self.btc_historical_total <= 100000):
 				bitcoin_query = 'BTC OR Bitcoin OR $BTC'
 
-				btc_historical_tweets, self.btc_sinceid = tweets.get_tweets(10, self.btc_sinceID, bitcoin_query)
+				btc_historical_tweets, self.btc_sinceid = tweets.get_tweets(100, self.btc_sinceID, bitcoin_query)
 				btc_total_score, btc_positive, btc_negative, btc_total = tweets.classify(btc_historical_tweets)
 				self.btc_historical_positive = self.btc_historical_positive + btc_positive
 				self.btc_historical_negative = self.btc_historical_negative + btc_negative
@@ -66,7 +66,7 @@ class BotStrategy(object):
 
 				ethereum_query = 'Ethereum OR ETH OR $ETH'
 
-				eth_historical_tweets, self.eth_sinceID = tweets.get_tweets(10, self.eth_sinceID, ethereum_query)
+				eth_historical_tweets, self.eth_sinceID = tweets.get_tweets(100, self.eth_sinceID, ethereum_query)
 				eth_total_score, eth_positive, eth_negative, eth_total = tweets.classify(eth_historical_tweets)
 				self.eth_historical_positive = self.eth_historical_positive + eth_positive
 				self.eth_historical_negative = self.eth_historical_negative + eth_negative
@@ -109,7 +109,7 @@ class BotStrategy(object):
 						self.trades.append(BotTrade(self.prices,stopLoss= 0.01))
 					else:
 						self.type_of_trade = ''
-						
+
 				time.sleep(60*5)
 
 		for trade in openTrades:
@@ -134,7 +134,7 @@ class BotStrategy(object):
 						self.currentClose = price['Bid']
 						trade.close(self.currentClose)
 				else:
-					time.sleep(60*5)
+					time.sleep(60)
 
 			elif (self.type_of_trade == 'ETH'):
 
@@ -151,12 +151,12 @@ class BotStrategy(object):
 					mean_sentiment = np.mean(self.eth_sentiments)
 					std_sentiment = np.std(self.eth_sentiments)
 
-					if eth_percent >= mean_sentiment + ((1.282 * std_sentiment)/sqrt(len(self.eth_sentiments))) :
+					if eth_percent <= mean_sentiment - ((1.282 * std_sentiment)/sqrt(len(self.eth_sentiments))) :
 						price = self.api.getticker('BTC-ETH')
 						self.currentClose = price['Bid']
 						trade.close(self.currentClose)
 				else:
-					time.sleep(60*5)
+					time.sleep(60)
 
 			elif (self.type_of_trade == 'BTCETH'):
 				bitcoin_query = 'BTC OR Bitcoin OR $BTC'
