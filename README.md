@@ -1,38 +1,25 @@
 # Cryptocurrency Trading System
-Cryptocurrency Trading System focused on the BTC to ETH currency pair utilizing the bittrex API wrapper
 
-*bittrex api wrapper: https://github.com/ndri/python-bittrex *
+Past research has proven the correlation between the sentiment and price of a stock. This trading system aims to utilize the changes of sentiment surrounding bitcoin and ethereum to predict future trends of the BTC-ETH currency pair. Comparing the sentiment of the last 5,000 tweets to the sentiment of the historical 100,000 tweets provides aids in forumlating a hypothesis of price trends in the near future. 
 
-Steps:
-1. Query 100,000 tweets to calculate historical sentiment of BTC & ETH
-2. Query 500 recent tweets to calculate current sentiment of BTC & ETH
-3. See if any of the buy conditions are achieved + note down the type of trade
-4. Query 500 recent tweets to calculate current sentiment of BTC & ETH
-5. See if corresponding sell condition is achieved 
+The python wrapper to connect with the bittrex API is given [here](https://github.com/ndri/python-bittrex)
 
-Buy indicators: 
+## Buy indicators: 
 
-   1. Buy when current eth sentiment is greather than 5% than historical eth sentiment
+   1. Buy ETH when current eth sentiment is greather than 4.2% than historical eth sentiment
    
-   2. Buy when current btc sentiment is lower than 5% than historical btc sentiment
+   2. Buy ETH when current btc sentiment is lower than 5.7% than historical btc sentiment
    
-   3. Buy when current btc sentiment is lower than 5% and eth sentiment is greater than 5%
-
-Sell indicators:
-   1. Sell eth trade when the percent change of sentiment is less than 2.2%
+   > While researching trends and formulating a buy strategy, I realized that the price change of ethereum is less resistant to changes in sentiment when compared to bitcoin. 
    
-   2. Sell btc trade when the percent change of sentiment is greater than 2.2%
    
-   3. Sell ethbtc trade when eth sentiment change is less than 2.2% and btc sentiment change is greater than 2.2%
+## Sell indicators: 
 
-*currently figuring out sell percent*
+Sell indicators are only checked after 30 minutes after buying
 
-Areas that need work: 
-
-1. Buying and selling conditions
-2. NLP  
-
-Areas that can be implemented:
-
-2. Incorporate multiple currency pairs
-3. Sentiment of various cryptos, highest ones are traded
+   1. Sell ETH when BTC sentiment is 0.800 standard deviations above the mean
+   
+   2. Sell ETH when ETH sentiment is 0.674 standard deviations below the mean
+   
+   
+   > While researching sell strategies, I realized that the distribution of number positive tweets in a sample of 5,000 tweets is roughly normal. As a result, the sell strategies is a result of how many standard deviations away from the mean the current sentiment lies
