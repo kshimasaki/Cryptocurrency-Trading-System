@@ -56,7 +56,10 @@ pos_tweets = [('I think the price will go up','positive'),
               ('ETH looking good','positive'),
               ('ETH looking bullish','positive'),
               ('Good things are coming','positive'),
-              ('This is looking like a good investment','positive')]
+              ('This is looking like a good investment','positive'),
+              ('We are going towards the moon','positive'),
+              ('Congratulations!','positive'),
+              ('Prices are supposed to rise soon','positive')]
 neg_tweets = [('Prices will go down soon','negative'),
               ('I am scared about bitcoins','negative'),
               ('Bitcoin is slowly dying','negative'),
@@ -84,7 +87,11 @@ neg_tweets = [('Prices will go down soon','negative'),
               ('We are in a bubble','negative'),
               ('Ethereum is falling','negative'),
               ('Steep fall soon','negative'),
-              ('This is a bad investment','negative')]
+              ('This is a bad investment','negative'),
+              ('This is going down','negative'),
+              ('These fees are way to high','negative'),
+              ('No conformation','negative'),
+              ('This has been stuck','negative')]
 
 tweets=[]
 for (words, sentiment) in (pos_tweets + neg_tweets):
