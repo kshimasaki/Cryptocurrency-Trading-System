@@ -59,7 +59,9 @@ pos_tweets = [('I think the price will go up','positive'),
               ('This is looking like a good investment','positive'),
               ('We are going towards the moon','positive'),
               ('Congratulations!','positive'),
-              ('Prices are supposed to rise soon','positive')]
+              ('Prices are supposed to rise soon','positive'),
+              ('This is a great use','positive'),
+              ('ETH is a buy','negative')]
 neg_tweets = [('Prices will go down soon','negative'),
               ('I am scared about bitcoins','negative'),
               ('Bitcoin is slowly dying','negative'),
@@ -91,11 +93,13 @@ neg_tweets = [('Prices will go down soon','negative'),
               ('This is going down','negative'),
               ('These fees are way to high','negative'),
               ('No conformation','negative'),
-              ('This has been stuck','negative')]
+              ('This has been stuck','negative'),
+              ('We will dip soon','negative'),
+              ('Short dip before we break the barrier','negative')]
 
 tweets=[]
 for (words, sentiment) in (pos_tweets + neg_tweets):
-    words_filtered = [e.lower() for e in words.split() if len(e) >= 2]
+    words_filtered = [e.lower() for e in words.split() if len(e) >= 1]
     tweets.append((words_filtered,sentiment))
 
 
