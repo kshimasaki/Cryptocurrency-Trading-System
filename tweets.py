@@ -95,7 +95,8 @@ neg_tweets = [('Prices will go down soon','negative'),
               ('No conformation','negative'),
               ('This has been stuck','negative'),
               ('We will dip soon','negative'),
-              ('Short dip before we break the barrier','negative')]
+              ('Short dip before we break the barrier','negative'),
+              ('Dont buy','negative')]
 
 tweets=[]
 for (words, sentiment) in (pos_tweets + neg_tweets):
