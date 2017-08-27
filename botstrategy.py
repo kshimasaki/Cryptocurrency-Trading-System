@@ -55,7 +55,7 @@ class BotStrategy(object):
 			if (self.btc_historical_total <= 100000):
 				bitcoin_query = 'BTC OR Bitcoin OR $BTC'
 
-				btc_historical_tweets, self.btc_sinceid = tweets.get_tweets(100, self.btc_sinceID, bitcoin_query)
+				btc_historical_tweets, self.btc_sinceid = tweets.get_tweets(50, self.btc_sinceID, bitcoin_query)
 				btc_total_score, btc_positive, btc_negative, btc_total = tweets.classify(btc_historical_tweets)
 				self.btc_historical_positive = self.btc_historical_positive + btc_positive
 				self.btc_historical_negative = self.btc_historical_negative + btc_negative
@@ -66,7 +66,7 @@ class BotStrategy(object):
 
 				ethereum_query = 'Ethereum OR ETH OR $ETH'
 
-				eth_historical_tweets, self.eth_sinceID = tweets.get_tweets(100, self.eth_sinceID, ethereum_query)
+				eth_historical_tweets, self.eth_sinceID = tweets.get_tweets(50, self.eth_sinceID, ethereum_query)
 				eth_total_score, eth_positive, eth_negative, eth_total = tweets.classify(eth_historical_tweets)
 				self.eth_historical_positive = self.eth_historical_positive + eth_positive
 				self.eth_historical_negative = self.eth_historical_negative + eth_negative

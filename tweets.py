@@ -129,14 +129,14 @@ def get_min_id(public_tweets):
 def get_tweets(hundred, sinceid, searchQuery):
     all_tweets = []
     for i in range(hundred):
-        public_tweets = api.search(q = searchQuery,
+        public_tweets1 = api.search(q = searchQuery,
                                    count = 100,
                                    since_id = sinceid,
                                    lang = 'en')
-        for tweet in public_tweets:
-            all_tweets.append(tweet.text)
+        sinceid = get_min_id(public_tweets1)
 
-        sinceid = get_min_id(public_tweets)
+        for tweet in (public_tweets1):
+            all_tweets.append(tweet.text)
 
     return all_tweets, sinceid
 
