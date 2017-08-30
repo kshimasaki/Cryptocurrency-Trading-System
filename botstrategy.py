@@ -77,6 +77,8 @@ class BotStrategy(object):
 
 				if self.btc_historical_total >= 100000:
 					print '\033[1m' + "Historical Tweets Analyzed"
+					print "historical btc percent: " + str(self.btc_historical_percent)
+					print "historical eth percent: " + str(self.eth_historical_percent)
 					print '\033[0m'
 
 			elif (self.btc_historical_total > 100000):
@@ -99,11 +101,13 @@ class BotStrategy(object):
 						self.btc_trading_percent = btc_percent
 						self.type_of_trade = 'BTC'
 						self.trades.append(BotTrade(self.prices,stopLoss= 0.01))
+						print (btc_percent)/(self.btc_historical_percent)
 					elif(eth_percent > 1.042*self.eth_historical_percent):
 						self.eth_sentiments = []
 						self.eth_trading_percent = eth_percent
 						self.type_of_trade = 'ETH'
 						self.trades.append(BotTrade(self.prices,stopLoss= 0.01))
+						print (eth_percent)/(self.eth_historical_percent)
 					else:
 						self.type_of_trade = ''
 
