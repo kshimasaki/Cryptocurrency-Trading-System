@@ -4,6 +4,7 @@ import tweets
 import time
 from bittrex import bittrex
 import numpy as np
+import math
 
 class BotStrategy(object):
 	def __init__(self):
@@ -101,13 +102,11 @@ class BotStrategy(object):
 						self.btc_trading_percent = btc_percent
 						self.type_of_trade = 'BTC'
 						self.trades.append(BotTrade(self.prices,stopLoss= 0.01))
-						print (btc_percent)/(self.btc_historical_percent)
 					elif(eth_percent > 1.042*self.eth_historical_percent):
 						self.eth_sentiments = []
 						self.eth_trading_percent = eth_percent
 						self.type_of_trade = 'ETH'
 						self.trades.append(BotTrade(self.prices,stopLoss= 0.01))
-						print (eth_percent)/(self.eth_historical_percent)
 					else:
 						self.type_of_trade = ''
 
@@ -118,7 +117,7 @@ class BotStrategy(object):
 			if (self.type_of_trade == 'BTC'):
 
 				bitcoin_query = 'BTC OR Bitcoin OR $BTC'
-				btc_tweets, sinceid_recent = tweets.get_tweets(3,0,bitcoin_query)
+				btc_tweets, sinceid_recent = tweets.get_tweets(10,0,bitcoin_query)
 
 				btc_total_score2, btc_positive2, btc_negative2, btc_total2 = tweets.classify(btc_tweets)
 				btc_percent = (btc_positive2/btc_total2)*100
@@ -130,7 +129,7 @@ class BotStrategy(object):
 					mean_sentiment = np.mean(self.btc_sentiments)
 					std_sentiment = np.std(self.btc_sentiments)
 
-					if btc_percent >= mean_sentiment + ((0.800 * std_sentiment)/sqrt(len(self.btc_sentiments))) :
+					if btc_percent >= mean_sentiment + ((0.800 * std_sentiment)/math.sqrt(len(self.btc_sentiments))) :
 						price = self.api.getticker('BTC-ETH')
 						self.currentClose = price['Bid']
 						trade.close(self.currentClose)
@@ -140,7 +139,7 @@ class BotStrategy(object):
 			elif (self.type_of_trade == 'ETH'):
 
 				ethereum_query = 'Ethereum OR ETH OR $ETH'
-				eth_tweets, sinceid_recent = tweets.get_tweets(3,0,ethereum_query)
+				eth_tweets, sinceid_recent = tweets.get_tweets(10,0,ethereum_query)
 
 				eth_total_score2, eth_positive2, eth_negative2, eth_total2 = tweets.classify(eth_tweets)
 				eth_percent = (eth_positive2/eth_total2)*100
@@ -152,7 +151,7 @@ class BotStrategy(object):
 					mean_sentiment = np.mean(self.eth_sentiments)
 					std_sentiment = np.std(self.eth_sentiments)
 
-					if eth_percent <= mean_sentiment - ((0.674 * std_sentiment)/sqrt(len(self.eth_sentiments))) :
+					if eth_percent <= mean_sentiment - ((0.674 * std_sentiment)/math.sqrt(len(self.eth_sentiments))) :
 						price = self.api.getticker('BTC-ETH')
 						self.currentClose = price['Bid']
 						trade.close(self.currentClose)
