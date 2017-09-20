@@ -28,7 +28,7 @@ class BotStrategy(object):
 		self.eth_sinceID = 0
 		self.eth_trading_percent = 0
 		self.type_of_trade = ''
-		self.api = bittrex('5d68421a77974c5cbb302565ed59abd8','67a17b2dc6e0453bad86ccfba7d84c8b')
+		self.api = bittrex('','')
 		self.btc_sentiments = []
 		self.eth_sentiments = []
 
