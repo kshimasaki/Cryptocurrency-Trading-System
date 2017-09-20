@@ -110,8 +110,8 @@ training_set = nltk.classify.apply_features(extract_features,tweets)
 
 classifier = nltk.NaiveBayesClassifier.train(training_set)
 
-auth = tweepy.OAuthHandler('yW781OSTQWbW7ik5Z6pfEPTYo', 'YubyaE1EVsdy6DIEbrMCHyuFqZ2LNpllDQciHPCkLZDt7iEv7C')
-auth.set_access_token('2944605422-c07iLPpdzzzx236JwPvJlI8lDTrIIBXZBbKWNfC', 'DQMNmc51auJ5vzQiWbDvfQd7lrJ48cHKRHBIV9L5r91hE')
+auth = tweepy.OAuthHandler('', '')
+auth.set_access_token('', '')
 
 api = tweepy.API(auth, wait_on_rate_limit = True)
 
