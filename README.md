@@ -7,7 +7,7 @@ The python wrapper to connect with the bittrex API is given [here](https://githu
 
 ## Buy indicators: 
 
-   1. Buy ETH when current eth sentiment is greather than 4.2% than historical eth sentiment
+   1. Buy ETH when current eth sentiment is greater than 4.2% than historical eth sentiment
    
    2. Buy ETH when current btc sentiment is lower than 5.7% than historical btc sentiment
     
